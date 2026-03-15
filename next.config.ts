@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
+        // se agrego este https para que no se rompa la appa por las imagenes
         protocol: 'https',
         hostname: 'images.unsplash.com',
         pathname: '/**',
