@@ -17,20 +17,12 @@ export default function PropertyGrid() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {newProperties.map((property, index) => {
-          // Add hiding classes to match the mock design which limited visible items
-          let className = '';
-          if (index === 4) className = 'hidden xl:flex';
-          if (index === 5) className = 'hidden lg:flex';
-          
-          return (
-            <PropertyCard 
-              key={property.id} 
-              property={property} 
-              className={className}
-            />
-          );
-        })}
+        {newProperties.map((property) => (
+          <PropertyCard 
+            key={property.id} 
+            property={property} 
+          />
+        ))}
       </div>
 
       <div className="mt-12 text-center">
