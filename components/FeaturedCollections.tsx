@@ -1,8 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { featuredProperties } from '@/lib/mock-data';
+import { getFeaturedProperties } from '@/lib/properties';
 
-export default function FeaturedCollections() {
+export default async function FeaturedCollections() {
+  const featuredProperties = await getFeaturedProperties();
+
+  if (!featuredProperties || featuredProperties.length === 0) {
+    return null; // Don't render if no featured properties
+  }
+
   return (
     <section className="mb-16">
       <div className="flex items-end justify-between mb-8">
@@ -20,14 +26,16 @@ export default function FeaturedCollections() {
           <div key={property.id} className="group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer">
             <div className="aspect-[4/3] w-full overflow-hidden relative">
               <Image 
-                src={property.imageUrl} 
-                alt={property.imageAlt}
+                src={property.image_url} 
+                alt={property.image_alt}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark z-10">
-                {property.badge}
-              </div>
+              {property.badge && (
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-nordic-dark z-10">
+                  {property.badge}
+                </div>
+              )}
               <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all z-10">
                 <span className="material-icons text-xl">favorite_border</span>
               </button>
@@ -42,7 +50,12 @@ export default function FeaturedCollections() {
                     <span className="material-icons text-sm">place</span> {property.location}
                   </p>
                 </div>
-                <span className="text-xl font-semibold text-mosque">${property.price.toLocaleString()}</span>
+                <div className="flex flex-col items-end">
+                  <span className="text-xl font-semibold text-mosque">${property.price.toLocaleString()}</span>
+                  {property.price_suffix && (
+                    <span className="text-xs text-nordic-muted uppercase">{property.price_suffix}</span>
+                  )}
+                </div>
               </div>
 
               <div className="flex items-center gap-6 mt-6 pt-6 border-t border-nordic-dark/5">

@@ -13,6 +13,7 @@ export interface Property {
   image_alt: string;
   badge: string | null;
   type: 'sale' | 'rent';
+  is_featured: boolean;
 }
 
 const PAGE_SIZE = 8;
@@ -36,4 +37,20 @@ export async function getProperties(page: number = 1) {
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   return { properties: (data as Property[]) ?? [], totalCount, totalPages };
+}
+
+export async function getFeaturedProperties() {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('is_featured', true)
+    .order('created_at', { ascending: true })
+    .limit(4); // Limit to 4 for the homescreen
+
+  if (error) {
+    console.error('Error fetching featured properties:', error);
+    return [];
+  }
+
+  return (data as Property[]) ?? [];
 }
