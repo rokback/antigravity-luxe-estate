@@ -1,7 +1,14 @@
-import { newProperties } from '@/lib/mock-data';
+import { Property } from '@/lib/properties';
 import PropertyCard from './PropertyCard';
+import Pagination from './Pagination';
 
-export default function PropertyGrid() {
+interface PropertyGridProps {
+  properties: Property[];
+  currentPage: number;
+  totalPages: number;
+}
+
+export default function PropertyGrid({ properties, currentPage, totalPages }: PropertyGridProps) {
   return (
     <section>
       <div className="flex items-end justify-between mb-8">
@@ -17,19 +24,28 @@ export default function PropertyGrid() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {newProperties.map((property) => (
-          <PropertyCard 
-            key={property.id} 
-            property={property} 
+        {properties.map((property) => (
+          <PropertyCard
+            key={property.id}
+            property={{
+              id: property.id,
+              title: property.title,
+              location: property.location,
+              price: property.price,
+              priceSuffix: property.price_suffix ?? undefined,
+              beds: property.beds,
+              baths: property.baths,
+              area: property.area,
+              imageUrl: property.image_url,
+              imageAlt: property.image_alt,
+              badge: property.badge ?? undefined,
+              type: property.type,
+            }}
           />
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <button className="px-8 py-3 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md cursor-pointer">
-          Load more properties
-        </button>
-      </div>
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </section>
   );
 }
