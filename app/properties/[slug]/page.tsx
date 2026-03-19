@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps) {
     openGraph: {
       title: property.title,
       description: property.location,
-      images: [property.image_url],
+      images: [property.images[0]],
     },
   };
 }
@@ -41,10 +41,7 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Ensure images array has at least the main image
-  const propertyImages = property.images && property.images.length > 0 
-    ? property.images 
-    : [property.image_url];
+  const propertyImages = property.images;
 
   return (
     <div className="min-h-screen bg-clear-day text-nordic">

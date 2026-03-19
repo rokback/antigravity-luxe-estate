@@ -13,7 +13,7 @@ export default function PropertyCard({ property, className = '' }: PropertyCardP
       <article className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col ${className}`}>
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image 
-            src={property.image_url} 
+            src={property.images[0]} 
             alt={property.image_alt}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"

@@ -27,7 +27,7 @@ export default async function FeaturedCollections() {
             <div className="group relative rounded-xl overflow-hidden shadow-soft bg-white cursor-pointer h-full border border-nordic-dark/5">
               <div className="aspect-[16/10] w-full overflow-hidden relative">
                 <Image 
-                  src={property.image_url} 
+                  src={property.images[0]} 
                   alt={property.image_alt}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"

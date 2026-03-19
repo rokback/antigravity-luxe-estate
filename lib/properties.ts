@@ -10,9 +10,8 @@ export interface Property {
   beds: number;
   baths: number;
   area: number;
-  image_url: string;
-  image_alt: string;
   images: string[];
+  image_alt: string;
   badge: string | null;
   type: 'sale' | 'rent';
   is_featured: boolean;
