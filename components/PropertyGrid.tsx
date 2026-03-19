@@ -27,20 +27,7 @@ export default function PropertyGrid({ properties, currentPage, totalPages }: Pr
         {properties.map((property) => (
           <PropertyCard
             key={property.id}
-            property={{
-              id: property.id,
-              title: property.title,
-              location: property.location,
-              price: property.price,
-              priceSuffix: property.price_suffix ?? undefined,
-              beds: property.beds,
-              baths: property.baths,
-              area: property.area,
-              imageUrl: property.image_url,
-              imageAlt: property.image_alt,
-              badge: property.badge ?? undefined,
-              type: property.type,
-            }}
+            property={property}
           />
         ))}
       </div>

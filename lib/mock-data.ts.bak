@@ -1,5 +1,4 @@
-/* 
- export interface Property {
+export interface Property {
   id: string;
   title: string;
   location: string;
@@ -243,5 +242,4 @@ export const newProperties: Property[] = [
     imageAlt: 'Suburban house with front yard',
     type: 'sale'
   }
-]; 
- */
+];

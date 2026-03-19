@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase/server';
 
 export interface Property {
   id: string;
+  slug: string;
   title: string;
   location: string;
   price: number;
@@ -11,9 +12,26 @@ export interface Property {
   area: number;
   image_url: string;
   image_alt: string;
+  images: string[];
   badge: string | null;
   type: 'sale' | 'rent';
   is_featured: boolean;
+}
+
+export async function getPropertyBySlug(slug: string): Promise<Property | null> {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') return null; // Not found
+    console.error('Error fetching property by slug:', error);
+    return null;
+  }
+
+  return data as Property;
 }
 
 const PAGE_SIZE = 8;
