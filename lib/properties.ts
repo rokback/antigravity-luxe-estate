@@ -103,7 +103,7 @@ export async function getFeaturedProperties() {
     .select('*')
     .eq('is_featured', true)
     .order('created_at', { ascending: true })
-    .limit(4); // Limit to 4 for the homescreen
+    .limit(2); // Limit to 2 for the homescreen
 
   if (error) {
     console.error('Error fetching featured properties:', error);

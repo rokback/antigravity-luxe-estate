@@ -35,12 +35,18 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const { properties, totalPages } = await getProperties(page, filters);
 
+  const hasActiveFilters = Object.entries(filters).some(([key, value]) => {
+    if (key === 'page') return false;
+    if (Array.isArray(value)) return value.length > 0;
+    return value !== undefined && value !== null && value !== '';
+  });
+
   return (
     <>
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <Hero />
-        <FeaturedCollections />
+        {!hasActiveFilters && <FeaturedCollections />}
         <PropertyGrid
           properties={properties}
           currentPage={page}
