@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 interface PaginationProps {
   currentPage: number;
@@ -8,7 +9,14 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages }: PaginationProps) {
+  const searchParams = useSearchParams();
   if (totalPages <= 1) return null;
+
+  const createPageURL = (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', pageNumber.toString());
+    return `/?${params.toString()}`;
+  };
 
   const prevPage = currentPage - 1;
   const nextPage = currentPage + 1;
@@ -22,7 +30,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
       {/* Prev */}
       {hasPrev ? (
         <Link
-          href={`/?page=${prevPage}`}
+          href={createPageURL(prevPage)}
           className="flex items-center gap-1.5 px-4 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md text-sm"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,12 +47,11 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
         </span>
       )}
 
-      {/* Page numbers */}
       <div className="flex items-center gap-1">
         {pageNumbers.map((page) => (
           <Link
             key={page}
-            href={`/?page=${page}`}
+            href={createPageURL(page)}
             className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-all ${
               page === currentPage
                 ? 'bg-nordic-dark text-white shadow-sm'
@@ -59,7 +66,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
       {/* Next */}
       {hasNext ? (
         <Link
-          href={`/?page=${nextPage}`}
+          href={createPageURL(nextPage)}
           className="flex items-center gap-1.5 px-4 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md text-sm"
         >
           Next

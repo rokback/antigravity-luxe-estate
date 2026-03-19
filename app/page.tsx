@@ -5,13 +5,35 @@ import PropertyGrid from "@/components/PropertyGrid";
 import { getProperties } from "@/lib/properties";
 
 interface HomeProps {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ 
+    page?: string;
+    location?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    category?: string;
+    beds?: string;
+    baths?: string;
+    amenities?: string;
+    type?: string;
+  }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const page = Math.max(1, parseInt(params.page ?? '1', 10) || 1);
-  const { properties, totalPages } = await getProperties(page);
+  
+  const filters = {
+    location: params.location,
+    minPrice: params.minPrice ? parseInt(params.minPrice) : undefined,
+    maxPrice: params.maxPrice ? parseInt(params.maxPrice) : undefined,
+    category: params.category,
+    beds: params.beds ? parseInt(params.beds) : undefined,
+    baths: params.baths ? parseInt(params.baths) : undefined,
+    amenities: params.amenities ? params.amenities.split(',') : undefined,
+    type: params.type as 'sale' | 'rent' | undefined,
+  };
+
+  const { properties, totalPages } = await getProperties(page, filters);
 
   return (
     <>
