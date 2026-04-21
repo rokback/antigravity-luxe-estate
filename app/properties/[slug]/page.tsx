@@ -201,10 +201,10 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
               <h2 className="text-lg font-semibold mb-4 text-nordic">{t('details.about_title')}</h2>
               <div className="prose prose-slate max-w-none text-nordic/70 leading-relaxed">
                 <p className="mb-4">
-                  Experience modern luxury in this architecturally stunning home located in {property.location}. Designed with an emphasis on indoor-outdoor living, the residence features floor-to-ceiling glass walls that flood the interiors with natural light.
+                  {t('details.desc_1').replace('{location}', property.location)}
                 </p>
                 <p>
-                  The open-concept kitchen is equipped with top-of-the-line appliances and custom cabinetry, perfect for culinary enthusiasts. Retreat to the primary suite, a sanctuary of relaxation with a spa-inspired bath and private balcony.
+                  {t('details.desc_2')}
                 </p>
               </div>
               <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
@@ -219,7 +219,7 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
                 {['Smart Home System', 'Swimming Pool', 'Central Heating & Cooling', 'Electric Vehicle Charging', 'Private Gym', 'Wine Cellar'].map((amenity) => (
                   <div key={amenity} className="flex items-center gap-3 text-nordic/70">
                     <span className="material-icons text-mosque/60 text-sm">check_circle</span>
-                    <span>{amenity}</span>
+                    <span>{t(`filter.amenity_labels.${amenity}`) === `filter.amenity_labels.${amenity}` ? amenity : t(`filter.amenity_labels.${amenity}`)}</span>
                   </div>
                 ))}
               </div>
@@ -246,7 +246,7 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
       <footer className="bg-white border-t border-slate-200 mt-12 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-sm text-nordic/50">
-            © 2026 LuxeEstate Inc. All rights reserved.
+            {t('footer.copyright')}
           </div>
           <div className="flex gap-6">
             <Link href="#" className="text-nordic/40 hover:text-mosque transition-colors">

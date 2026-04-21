@@ -63,7 +63,12 @@
       "Parking": "Estacionamiento",
       "Air Conditioning": "Aire Acondicionado",
       "High-speed Wifi": "Wifi de alta velocidad",
-      "Patio / Terrace": "Patio / Terraza"
+      "Patio / Terrace": "Patio / Terraza",
+      "Smart Home System": "Sistema de Casa Inteligente",
+      "Central Heating & Cooling": "Calefacción y Refrigeración Central",
+      "Electric Vehicle Charging": "Carga para Vehículo Eléctrico",
+      "Private Gym": "Gimnasio Privado",
+      "Wine Cellar": "Bodega de Vinos"
     }
   },
   "pagination": {
@@ -88,6 +93,11 @@
     "estimated_payment": "Pago Estimado",
     "estimated_desc": "Desde ",
     "estimated_desc_after": "/mes con 20% inicial",
-    "calc_mortgage": "Calcular Hipoteca"
+    "calc_mortgage": "Calcular Hipoteca",
+    "desc_1": "Experimente el lujo moderno en esta casa arquitectónicamente impresionante ubicada en {location}. Diseñada con un énfasis en la vida interior-exterior, la residencia cuenta con paredes de vidrio de piso a techo que inundan los interiores con luz natural.",
+    "desc_2": "La cocina de concepto abierto está equipada con electrodomésticos de primera línea y gabinetes a medida, perfecta para los entusiastas de la culinaria. Retírese a la suite principal, un santuario de relajación con un baño inspirado en un spa y balcón privado."
+  },
+  "footer": {
+    "copyright": "© 2026 LuxeEstate Inc. Todos los derechos reservados."
   }
 }

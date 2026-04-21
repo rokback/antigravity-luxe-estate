@@ -63,7 +63,12 @@
       "Parking": "Parking",
       "Air Conditioning": "Air Conditioning",
       "High-speed Wifi": "High-speed Wifi",
-      "Patio / Terrace": "Patio / Terrace"
+      "Patio / Terrace": "Patio / Terrace",
+      "Smart Home System": "Smart Home System",
+      "Central Heating & Cooling": "Central Heating & Cooling",
+      "Electric Vehicle Charging": "Electric Vehicle Charging",
+      "Private Gym": "Private Gym",
+      "Wine Cellar": "Wine Cellar"
     }
   },
   "pagination": {
@@ -88,6 +93,11 @@
     "estimated_payment": "Estimated Payment",
     "estimated_desc": "Starting from ",
     "estimated_desc_after": "/mo with 20% down",
-    "calc_mortgage": "Calculate Mortgage"
+    "calc_mortgage": "Calculate Mortgage",
+    "desc_1": "Experience modern luxury in this architecturally stunning home located in {location}. Designed with an emphasis on indoor-outdoor living, the residence features floor-to-ceiling glass walls that flood the interiors with natural light.",
+    "desc_2": "The open-concept kitchen is equipped with top-of-the-line appliances and custom cabinetry, perfect for culinary enthusiasts. Retreat to the primary suite, a sanctuary of relaxation with a spa-inspired bath and private balcony."
+  },
+  "footer": {
+    "copyright": "© 2026 LuxeEstate Inc. All rights reserved."
   }
 }
