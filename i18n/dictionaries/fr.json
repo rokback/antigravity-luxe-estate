@@ -1,0 +1,93 @@
+{
+  "navbar": {
+    "buy": "Acheter",
+    "rent": "Louer",
+    "sell": "Vendre",
+    "saved_homes": "Sauvegardés"
+  },
+  "hero": {
+    "title_start": "Trouvez votre",
+    "title_highlight": "sanctuaire",
+    "search_placeholder": "Rechercher par ville, quartier ou adresse...",
+    "search_button": "Rechercher",
+    "filters": "Filtres",
+    "categories": {
+      "All": "Tout",
+      "House": "Maison",
+      "Apartment": "Appartement",
+      "Villa": "Villa",
+      "Penthouse": "Attique"
+    }
+  },
+  "featured": {
+    "title": "Collections en vedette",
+    "subtitle": "Propriétés sélectionnées pour un œil averti.",
+    "view_all": "Voir tout"
+  },
+  "property": {
+    "beds": "Lits",
+    "baths": "Bains",
+    "for_sale": "À VENDRE",
+    "for_rent": "À LOUER"
+  },
+  "grid": {
+    "title": "Nouveautés sur le marché",
+    "subtitle": "Nouvelles opportunités ajoutées cette semaine.",
+    "all": "Tout",
+    "buy": "Acheter",
+    "rent": "Louer"
+  },
+  "filter": {
+    "title": "Filtres",
+    "location": "Emplacement",
+    "location_placeholder": "Ville, quartier ou adresse",
+    "price_range": "Gamme de prix",
+    "min_price": "Prix Min.",
+    "max_price": "Prix Max.",
+    "any": "Tout",
+    "property_type": "Type de Propriété",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "amenities": "Équipements",
+    "clear_all": "Effacer tout",
+    "show_homes": "Afficher",
+    "homes": "Propriétés",
+    "categories": {
+      "Any Type": "Type indifférent",
+      "Condo": "Appartement en copropriété",
+      "Townhouse": "Maison de ville"
+    },
+    "amenity_labels": {
+      "Swimming Pool": "Piscine",
+      "Gym": "Salle de sport",
+      "Parking": "Parking",
+      "Air Conditioning": "Climatisation",
+      "High-speed Wifi": "Wifi haut débit",
+      "Patio / Terrace": "Patio / Terrasse"
+    }
+  },
+  "pagination": {
+    "prev": "Précédent",
+    "next": "Suivant"
+  },
+  "details": {
+    "back": "Retour aux propriétés",
+    "new": "NOUVEAU",
+    "view_photos": "Voir les {count} photos",
+    "top_agent": "Agent très bien noté",
+    "schedule": "Planifier une visite",
+    "contact": "Contacter l'agent",
+    "features_title": "Caractéristiques de la propriété",
+    "sqm": "Mètres Carrés",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de bain",
+    "garage": "Garage",
+    "about_title": "À propos de cette maison",
+    "read_more": "Lire la suite",
+    "amenities_title": "Équipements",
+    "estimated_payment": "Paiement estimé",
+    "estimated_desc": "À partir de ",
+    "estimated_desc_after": "/mois avec 20% d'apport",
+    "calc_mortgage": "Calculer l'hypothèque"
+  }
+}

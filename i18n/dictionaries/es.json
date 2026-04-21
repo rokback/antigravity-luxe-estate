@@ -1,0 +1,93 @@
+{
+  "navbar": {
+    "buy": "Comprar",
+    "rent": "Alquilar",
+    "sell": "Vender",
+    "saved_homes": "Guardados"
+  },
+  "hero": {
+    "title_start": "Encuentra tu",
+    "title_highlight": "santuario",
+    "search_placeholder": "Busca por ciudad, barrio o dirección...",
+    "search_button": "Buscar",
+    "filters": "Filtros",
+    "categories": {
+      "All": "Todos",
+      "House": "Casa",
+      "Apartment": "Apartamento",
+      "Villa": "Villa",
+      "Penthouse": "Ático"
+    }
+  },
+  "featured": {
+    "title": "Colecciones Destacadas",
+    "subtitle": "Propiedades selectas para el ojo exigente.",
+    "view_all": "Ver todas"
+  },
+  "property": {
+    "beds": "Hab.",
+    "baths": "Baños",
+    "for_sale": "EN VENTA",
+    "for_rent": "EN ALQUILER"
+  },
+  "grid": {
+    "title": "Nuevas en el Mercado",
+    "subtitle": "Oportunidades frescas agregadas esta semana.",
+    "all": "Todos",
+    "buy": "Comprar",
+    "rent": "Alquilar"
+  },
+  "filter": {
+    "title": "Filtros",
+    "location": "Ubicación",
+    "location_placeholder": "Ciudad, barrio o dirección",
+    "price_range": "Rango de Precio",
+    "min_price": "Precio Mín.",
+    "max_price": "Precio Máx.",
+    "any": "Cualquier",
+    "property_type": "Tipo de Propiedad",
+    "bedrooms": "Dormitorios",
+    "bathrooms": "Baños",
+    "amenities": "Comodidades",
+    "clear_all": "Limpiar todos",
+    "show_homes": "Mostrar",
+    "homes": "Casas",
+    "categories": {
+      "Any Type": "Cualquier Tipo",
+      "Condo": "Condominio",
+      "Townhouse": "Adosado"
+    },
+    "amenity_labels": {
+      "Swimming Pool": "Piscina",
+      "Gym": "Gimnasio",
+      "Parking": "Estacionamiento",
+      "Air Conditioning": "Aire Acondicionado",
+      "High-speed Wifi": "Wifi de alta velocidad",
+      "Patio / Terrace": "Patio / Terraza"
+    }
+  },
+  "pagination": {
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
+  "details": {
+    "back": "Volver a Propiedades",
+    "new": "NUEVO",
+    "view_photos": "Ver todas las {count} fotos",
+    "top_agent": "Agente Destacado",
+    "schedule": "Programar Visita",
+    "contact": "Contactar Agente",
+    "features_title": "Características de la Propiedad",
+    "sqm": "Metros Cuadrados",
+    "bedrooms": "Dormitorios",
+    "bathrooms": "Baños",
+    "garage": "Garaje",
+    "about_title": "Acerca de esta casa",
+    "read_more": "Leer más",
+    "amenities_title": "Comodidades",
+    "estimated_payment": "Pago Estimado",
+    "estimated_desc": "Desde ",
+    "estimated_desc_after": "/mes con 20% inicial",
+    "calc_mortgage": "Calcular Hipoteca"
+  }
+}

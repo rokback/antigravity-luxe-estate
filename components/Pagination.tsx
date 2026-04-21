@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface PaginationProps {
   currentPage: number;
@@ -10,6 +11,7 @@ interface PaginationProps {
 
 export default function Pagination({ currentPage, totalPages }: PaginationProps) {
   const searchParams = useSearchParams();
+  const { t } = useLanguage();
   if (totalPages <= 1) return null;
 
   const createPageURL = (pageNumber: number | string) => {
@@ -36,14 +38,14 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
           </svg>
-          Prev
+          {t('pagination.prev')}
         </Link>
       ) : (
         <span className="flex items-center gap-1.5 px-4 py-2 bg-white border border-nordic-dark/5 text-nordic-muted rounded-lg text-sm cursor-not-allowed opacity-50">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
           </svg>
-          Prev
+          {t('pagination.prev')}
         </span>
       )}
 
@@ -69,14 +71,14 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
           href={createPageURL(nextPage)}
           className="flex items-center gap-1.5 px-4 py-2 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-medium rounded-lg transition-all hover:shadow-md text-sm"
         >
-          Next
+          {t('pagination.next')}
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
           </svg>
         </Link>
       ) : (
         <span className="flex items-center gap-1.5 px-4 py-2 bg-white border border-nordic-dark/5 text-nordic-muted rounded-lg text-sm cursor-not-allowed opacity-50">
-          Next
+          {t('pagination.next')}
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
           </svg>
