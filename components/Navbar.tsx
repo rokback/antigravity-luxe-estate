@@ -5,13 +5,17 @@ import Image from 'next/image';
 import LanguageSelector from './LanguageSelector';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { createClient } from '@/lib/supabase/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { User } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const { t } = useLanguage();
   const supabase = createClient();
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -26,6 +30,23 @@ export default function Navbar() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Close menu on outside click
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setMenuOpen(false);
+    router.push('/login');
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-background-light/95 backdrop-blur-md border-b border-nordic-dark/10">
@@ -56,17 +77,36 @@ export default function Navbar() {
             </button>
             <div className="flex items-center gap-2 pl-2 border-l border-nordic-dark/10 ml-2">
               {user ? (
-                <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all relative">
-                  <Image 
-                    src={user.user_metadata?.avatar_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"} 
-                    alt="User profile" 
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative" ref={menuRef}>
+                  <button
+                    onClick={() => setMenuOpen(prev => !prev)}
+                    className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden ring-2 ring-transparent hover:ring-mosque transition-all relative block"
+                  >
+                    <Image
+                      src={user.user_metadata?.avatar_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"}
+                      alt="User profile"
+                      fill
+                      className="object-cover"
+                    />
+                  </button>
+                  {menuOpen && (
+                    <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-soft border border-nordic-dark/5 py-1 z-50">
+                      <div className="px-4 py-2 border-b border-nordic-dark/5">
+                        <p className="text-xs font-medium text-nordic-dark truncate">{user.user_metadata?.full_name || user.email}</p>
+                      </div>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+                      >
+                        <span className="material-icons text-sm">logout</span>
+                        {t('navbar.logout')}
+                      </button>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <Link href="/login" className="flex items-center justify-center bg-mosque text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mosque/90 transition-colors">
-                  Login
+                  {t('navbar.login')}
                 </Link>
               )}
             </div>
@@ -74,7 +114,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu - hidden by default in this implementation but kept for structure */}
+      {/* Mobile menu */}
       <div className="md:hidden border-t border-nordic-dark/5 bg-background-light overflow-hidden h-0 transition-all duration-300">
         <div className="px-4 py-2 space-y-1">
           <Link href="#" className="block px-3 py-2 rounded-md text-base font-medium text-mosque bg-mosque/10">{t('navbar.buy')}</Link>
