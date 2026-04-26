@@ -14,21 +14,44 @@ export default function Navbar() {
   const supabase = createClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let active = true;
+
+    async function loadRole(currentUser: User | null) {
+      if (!currentUser) {
+        if (active) setIsAdmin(false);
+        return;
+      }
+      const { data } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', currentUser.id)
+        .maybeSingle();
+      if (active) setIsAdmin(data?.role === 'admin');
+    }
+
     supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!active) return;
       setUser(user);
+      loadRole(user);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      const next = session?.user ?? null;
+      setUser(next);
+      loadRole(next);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   // Close menu on outside click
@@ -94,6 +117,16 @@ export default function Navbar() {
                       <div className="px-4 py-2 border-b border-nordic-dark/5">
                         <p className="text-xs font-medium text-nordic-dark truncate">{user.user_metadata?.full_name || user.email}</p>
                       </div>
+                      {isAdmin && (
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setMenuOpen(false)}
+                          className="w-full text-left px-4 py-2.5 text-sm text-nordic-dark hover:bg-clear-day transition-colors flex items-center gap-2"
+                        >
+                          <span className="material-icons text-sm">dashboard</span>
+                          {t('navbar.dashboard')}
+                        </Link>
+                      )}
                       <button
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"

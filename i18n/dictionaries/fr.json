@@ -5,7 +5,8 @@
     "sell": "Vendre",
     "saved_homes": "Sauvegardés",
     "login": "Se connecter",
-    "logout": "Se déconnecter"
+    "logout": "Se déconnecter",
+    "dashboard": "Tableau admin"
   },
   "hero": {
     "title_start": "Trouvez votre",
@@ -101,5 +102,62 @@
   },
   "footer": {
     "copyright": "© 2026 LuxeEstate Inc. Tous droits réservés."
+  },
+  "dashboard": {
+    "sidebar_title": "Administration",
+    "nav": {
+      "home": "Accueil",
+      "properties": "Propriétés",
+      "users": "Utilisateurs"
+    },
+    "role": {
+      "admin": "Administrateur",
+      "user": "Utilisateur"
+    },
+    "home": {
+      "title": "Tableau de bord",
+      "subtitle": "Vue d'ensemble de votre plateforme.",
+      "total_properties": "Propriétés",
+      "total_users": "Utilisateurs totaux",
+      "total_admins": "Administrateurs"
+    },
+    "properties": {
+      "title": "Propriétés",
+      "subtitle": "{count} propriétés sur la plateforme.",
+      "search_placeholder": "Rechercher par emplacement...",
+      "search": "Rechercher",
+      "type_any": "Tout type",
+      "type_sale": "À vendre",
+      "type_rent": "À louer",
+      "empty": "Aucun résultat.",
+      "yes": "Oui",
+      "no": "Non",
+      "view": "Voir",
+      "page_of": "Page {current} sur {total}",
+      "col": {
+        "image": "",
+        "title": "Titre",
+        "location": "Emplacement",
+        "price": "Prix",
+        "type": "Type",
+        "featured": "En vedette"
+      }
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "{count} comptes authentifiés.",
+      "empty": "Aucun utilisateur authentifié.",
+      "you": "Vous",
+      "saving": "Enregistrement...",
+      "saved": "Enregistré",
+      "error": "Échec de la mise à jour",
+      "cannot_demote_self": "Vous ne pouvez pas rétrograder votre propre rôle.",
+      "col": {
+        "user": "Utilisateur",
+        "created": "Créé",
+        "last_login": "Dernière connexion",
+        "role": "Rôle"
+      }
+    }
   }
 }

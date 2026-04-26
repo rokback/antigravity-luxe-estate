@@ -5,7 +5,8 @@
     "sell": "Sell",
     "saved_homes": "Saved Homes",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "dashboard": "Admin dashboard"
   },
   "hero": {
     "title_start": "Find your",
@@ -101,5 +102,62 @@
   },
   "footer": {
     "copyright": "© 2026 LuxeEstate Inc. All rights reserved."
+  },
+  "dashboard": {
+    "sidebar_title": "Administration",
+    "nav": {
+      "home": "Home",
+      "properties": "Properties",
+      "users": "Users"
+    },
+    "role": {
+      "admin": "Administrator",
+      "user": "User"
+    },
+    "home": {
+      "title": "Dashboard",
+      "subtitle": "Overview of your platform.",
+      "total_properties": "Properties",
+      "total_users": "Total users",
+      "total_admins": "Administrators"
+    },
+    "properties": {
+      "title": "Properties",
+      "subtitle": "{count} properties on the platform.",
+      "search_placeholder": "Search by location...",
+      "search": "Search",
+      "type_any": "Any type",
+      "type_sale": "For sale",
+      "type_rent": "For rent",
+      "empty": "No results.",
+      "yes": "Yes",
+      "no": "No",
+      "view": "View",
+      "page_of": "Page {current} of {total}",
+      "col": {
+        "image": "",
+        "title": "Title",
+        "location": "Location",
+        "price": "Price",
+        "type": "Type",
+        "featured": "Featured"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "{count} authenticated accounts.",
+      "empty": "No authenticated users yet.",
+      "you": "You",
+      "saving": "Saving...",
+      "saved": "Saved",
+      "error": "Couldn't update",
+      "cannot_demote_self": "You can't demote your own role.",
+      "col": {
+        "user": "User",
+        "created": "Created",
+        "last_login": "Last login",
+        "role": "Role"
+      }
+    }
   }
 }
