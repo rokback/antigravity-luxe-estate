@@ -105,6 +105,7 @@
   },
   "dashboard": {
     "sidebar_title": "Administration",
+    "logging_out": "Signing out...",
     "nav": {
       "home": "Home",
       "properties": "Properties",
@@ -122,8 +123,8 @@
       "total_admins": "Administrators"
     },
     "properties": {
-      "title": "Properties",
-      "subtitle": "{count} properties on the platform.",
+      "title": "My Properties",
+      "subtitle": "Manage your portfolio and track performance.",
       "search_placeholder": "Search by location...",
       "search": "Search",
       "type_any": "Any type",
@@ -133,18 +134,47 @@
       "yes": "Yes",
       "no": "No",
       "view": "View",
-      "page_of": "Page {current} of {total}",
+      "filter": "Filter",
+      "add_new": "Add New Property",
+      "coming_soon": "Coming soon",
+      "stats": {
+        "total": "Total Listings",
+        "for_sale": "For Sale",
+        "for_rent": "For Rent"
+      },
+      "status": {
+        "for_sale": "For Sale",
+        "for_rent": "For Rent",
+        "featured": "Featured"
+      },
+      "meta": {
+        "beds": "Beds",
+        "baths": "Baths",
+        "sqft": "sqft"
+      },
+      "actions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} results"
+      },
       "col": {
+        "details": "Property Details",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions",
         "image": "",
         "title": "Title",
         "location": "Location",
-        "price": "Price",
         "type": "Type",
         "featured": "Featured"
       }
     },
     "users": {
-      "title": "Users",
+      "title": "User Directory",
+      "directory_subtitle": "Manage user access and roles for your properties.",
       "subtitle": "{count} authenticated accounts.",
       "empty": "No authenticated users yet.",
       "you": "You",
@@ -152,7 +182,33 @@
       "saved": "Saved",
       "error": "Couldn't update",
       "cannot_demote_self": "You can't demote your own role.",
+      "search_placeholder": "Search by name or email...",
+      "add_user": "Add User",
+      "change_role": "Change Role",
+      "id_prefix": "ID: #USR-",
+      "tabs": {
+        "all": "All Users",
+        "admins": "Admins",
+        "users": "Users"
+      },
+      "status": {
+        "active": "Active",
+        "away": "Away",
+        "inactive": "Inactive",
+        "never": "Never"
+      },
+      "metrics": {
+        "created": "Created",
+        "last_login": "Last login"
+      },
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} users"
+      },
       "col": {
+        "user_details": "User Details",
+        "role_status": "Role & Status",
+        "performance": "Performance",
+        "actions": "Actions",
         "user": "User",
         "created": "Created",
         "last_login": "Last login",

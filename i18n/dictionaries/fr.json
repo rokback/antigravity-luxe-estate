@@ -105,6 +105,7 @@
   },
   "dashboard": {
     "sidebar_title": "Administration",
+    "logging_out": "Déconnexion...",
     "nav": {
       "home": "Accueil",
       "properties": "Propriétés",
@@ -122,8 +123,8 @@
       "total_admins": "Administrateurs"
     },
     "properties": {
-      "title": "Propriétés",
-      "subtitle": "{count} propriétés sur la plateforme.",
+      "title": "Mes Propriétés",
+      "subtitle": "Gérez votre portefeuille et suivez les performances.",
       "search_placeholder": "Rechercher par emplacement...",
       "search": "Rechercher",
       "type_any": "Tout type",
@@ -133,18 +134,47 @@
       "yes": "Oui",
       "no": "Non",
       "view": "Voir",
-      "page_of": "Page {current} sur {total}",
+      "filter": "Filtrer",
+      "add_new": "Ajouter une propriété",
+      "coming_soon": "Bientôt",
+      "stats": {
+        "total": "Total des annonces",
+        "for_sale": "À vendre",
+        "for_rent": "À louer"
+      },
+      "status": {
+        "for_sale": "À vendre",
+        "for_rent": "À louer",
+        "featured": "En vedette"
+      },
+      "meta": {
+        "beds": "Lits",
+        "baths": "Bains",
+        "sqft": "m²"
+      },
+      "actions": {
+        "view": "Voir",
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "pagination": {
+        "showing": "Affichage de {from} à {to} sur {total} résultats"
+      },
       "col": {
+        "details": "Détails de la propriété",
+        "price": "Prix",
+        "status": "Statut",
+        "actions": "Actions",
         "image": "",
         "title": "Titre",
         "location": "Emplacement",
-        "price": "Prix",
         "type": "Type",
         "featured": "En vedette"
       }
     },
     "users": {
-      "title": "Utilisateurs",
+      "title": "Annuaire des utilisateurs",
+      "directory_subtitle": "Gérez l'accès et les rôles de vos utilisateurs.",
       "subtitle": "{count} comptes authentifiés.",
       "empty": "Aucun utilisateur authentifié.",
       "you": "Vous",
@@ -152,7 +182,33 @@
       "saved": "Enregistré",
       "error": "Échec de la mise à jour",
       "cannot_demote_self": "Vous ne pouvez pas rétrograder votre propre rôle.",
+      "search_placeholder": "Rechercher par nom ou email...",
+      "add_user": "Ajouter un utilisateur",
+      "change_role": "Changer le rôle",
+      "id_prefix": "ID: #USR-",
+      "tabs": {
+        "all": "Tous",
+        "admins": "Administrateurs",
+        "users": "Utilisateurs"
+      },
+      "status": {
+        "active": "Actif",
+        "away": "Absent",
+        "inactive": "Inactif",
+        "never": "Jamais"
+      },
+      "metrics": {
+        "created": "Créé",
+        "last_login": "Dernière connexion"
+      },
+      "pagination": {
+        "showing": "Affichage de {from} à {to} sur {total} utilisateurs"
+      },
       "col": {
+        "user_details": "Détails de l'utilisateur",
+        "role_status": "Rôle et statut",
+        "performance": "Métriques",
+        "actions": "Actions",
         "user": "Utilisateur",
         "created": "Créé",
         "last_login": "Dernière connexion",

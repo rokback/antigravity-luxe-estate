@@ -105,6 +105,7 @@
   },
   "dashboard": {
     "sidebar_title": "Administración",
+    "logging_out": "Cerrando sesión...",
     "nav": {
       "home": "Inicio",
       "properties": "Propiedades",
@@ -122,8 +123,8 @@
       "total_admins": "Administradores"
     },
     "properties": {
-      "title": "Propiedades",
-      "subtitle": "{count} propiedades en la plataforma.",
+      "title": "Mis Propiedades",
+      "subtitle": "Gestiona tu portafolio y monitorea el rendimiento.",
       "search_placeholder": "Buscar por ubicación...",
       "search": "Buscar",
       "type_any": "Cualquier tipo",
@@ -133,18 +134,47 @@
       "yes": "Sí",
       "no": "No",
       "view": "Ver",
-      "page_of": "Página {current} de {total}",
+      "filter": "Filtrar",
+      "add_new": "Añadir propiedad",
+      "coming_soon": "Próximamente",
+      "stats": {
+        "total": "Total de listados",
+        "for_sale": "En venta",
+        "for_rent": "En alquiler"
+      },
+      "status": {
+        "for_sale": "En venta",
+        "for_rent": "En alquiler",
+        "featured": "Destacada"
+      },
+      "meta": {
+        "beds": "Hab.",
+        "baths": "Baños",
+        "sqft": "m²"
+      },
+      "actions": {
+        "view": "Ver",
+        "edit": "Editar",
+        "delete": "Eliminar"
+      },
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} resultados"
+      },
       "col": {
+        "details": "Detalles de propiedad",
+        "price": "Precio",
+        "status": "Estado",
+        "actions": "Acciones",
         "image": "",
         "title": "Título",
         "location": "Ubicación",
-        "price": "Precio",
         "type": "Tipo",
         "featured": "Destacada"
       }
     },
     "users": {
-      "title": "Usuarios",
+      "title": "Directorio de Usuarios",
+      "directory_subtitle": "Gestiona el acceso y los roles de tus usuarios.",
       "subtitle": "{count} cuentas autenticadas.",
       "empty": "Aún no hay usuarios autenticados.",
       "you": "Tú",
@@ -152,7 +182,33 @@
       "saved": "Guardado",
       "error": "No se pudo actualizar",
       "cannot_demote_self": "No puedes degradar tu propio rol.",
+      "search_placeholder": "Buscar por nombre o email...",
+      "add_user": "Añadir usuario",
+      "change_role": "Cambiar rol",
+      "id_prefix": "ID: #USR-",
+      "tabs": {
+        "all": "Todos",
+        "admins": "Administradores",
+        "users": "Usuarios"
+      },
+      "status": {
+        "active": "Activo",
+        "away": "Ausente",
+        "inactive": "Inactivo",
+        "never": "Nunca"
+      },
+      "metrics": {
+        "created": "Creado",
+        "last_login": "Último acceso"
+      },
+      "pagination": {
+        "showing": "Mostrando {from} a {to} de {total} usuarios"
+      },
       "col": {
+        "user_details": "Detalles del usuario",
+        "role_status": "Rol y estado",
+        "performance": "Métricas",
+        "actions": "Acciones",
         "user": "Usuario",
         "created": "Creado",
         "last_login": "Último acceso",

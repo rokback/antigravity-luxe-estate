@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getProperties } from '@/lib/properties';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { getTranslations } from '@/i18n';
+import Pagination from '../Pagination';
 
 type SearchParams = Promise<{ page?: string; q?: string; type?: string }>;
 
@@ -13,6 +15,26 @@ function formatPrice(value: number) {
   }).format(value);
 }
 
+async function loadStats() {
+  const admin = createAdminClient();
+  const [total, sale, rent] = await Promise.all([
+    admin.from('properties').select('*', { count: 'exact', head: true }),
+    admin
+      .from('properties')
+      .select('*', { count: 'exact', head: true })
+      .eq('type', 'sale'),
+    admin
+      .from('properties')
+      .select('*', { count: 'exact', head: true })
+      .eq('type', 'rent'),
+  ]);
+  return {
+    total: total.count ?? 0,
+    sale: sale.count ?? 0,
+    rent: rent.count ?? 0,
+  };
+}
+
 export default async function DashboardPropertiesPage({
   searchParams,
 }: {
@@ -22,186 +44,279 @@ export default async function DashboardPropertiesPage({
   const { page, q, type } = await searchParams;
   const currentPage = Math.max(1, Number(page) || 1);
 
-  const { properties, totalCount, totalPages } = await getProperties(currentPage, {
-    location: q,
-    type: type === 'sale' || type === 'rent' ? type : undefined,
-  });
+  const [{ properties, totalCount, totalPages }, stats] = await Promise.all([
+    getProperties(currentPage, {
+      location: q,
+      type: type === 'sale' || type === 'rent' ? type : undefined,
+    }),
+    loadStats(),
+  ]);
+
+  const fromIndex = totalCount === 0 ? 0 : (currentPage - 1) * 8 + 1;
+  const toIndex = (currentPage - 1) * 8 + properties.length;
+
+  const statCards = [
+    {
+      label: t('dashboard.properties.stats.total'),
+      value: stats.total,
+      icon: 'apartment',
+      iconWrap: 'bg-mosque/10 text-mosque',
+    },
+    {
+      label: t('dashboard.properties.stats.for_sale'),
+      value: stats.sale,
+      icon: 'sell',
+      iconWrap: 'bg-hint-of-green text-mosque',
+    },
+    {
+      label: t('dashboard.properties.stats.for_rent'),
+      value: stats.rent,
+      icon: 'vpn_key',
+      iconWrap: 'bg-orange-100 text-orange-600',
+    },
+  ];
 
   return (
     <div>
-      <header className="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+      {/* Header */}
+      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className="text-3xl font-bold text-nordic-dark tracking-tight">
             {t('dashboard.properties.title')}
           </h1>
           <p className="text-nordic-muted mt-1">
-            {t('dashboard.properties.subtitle').replace(
-              '{count}',
-              String(totalCount),
-            )}
+            {t('dashboard.properties.subtitle')}
           </p>
         </div>
-
-        <form className="flex gap-2" method="get">
-          <input
-            type="text"
-            name="q"
-            defaultValue={q ?? ''}
-            placeholder={t('dashboard.properties.search_placeholder')}
-            className="w-full sm:w-64 rounded-lg border border-nordic-dark/15 bg-white px-3 py-2 text-sm focus:border-mosque focus:outline-none"
-          />
-          <select
-            name="type"
-            defaultValue={type ?? ''}
-            className="rounded-lg border border-nordic-dark/15 bg-white px-3 py-2 text-sm focus:border-mosque focus:outline-none"
-          >
-            <option value="">{t('dashboard.properties.type_any')}</option>
-            <option value="sale">{t('dashboard.properties.type_sale')}</option>
-            <option value="rent">{t('dashboard.properties.type_rent')}</option>
-          </select>
+        <div className="flex items-center gap-3">
           <button
-            type="submit"
-            className="rounded-lg bg-mosque text-white px-4 py-2 text-sm font-medium hover:bg-nordic-dark transition-colors"
+            type="button"
+            disabled
+            aria-disabled="true"
+            title={t('dashboard.properties.coming_soon')}
+            className="bg-white border border-nordic-dark/15 text-nordic-dark/60 px-4 py-2.5 rounded-lg text-sm font-medium shadow-sm inline-flex items-center gap-2 opacity-60 cursor-not-allowed"
           >
-            {t('dashboard.properties.search')}
+            <span className="material-icons text-base">filter_list</span>
+            {t('dashboard.properties.filter')}
           </button>
-        </form>
+          <button
+            type="button"
+            disabled
+            aria-disabled="true"
+            title={t('dashboard.properties.coming_soon')}
+            className="bg-mosque text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-mosque/20 inline-flex items-center gap-2 opacity-60 cursor-not-allowed"
+          >
+            <span className="material-icons text-base">add</span>
+            {t('dashboard.properties.add_new')}
+          </button>
+        </div>
       </header>
 
-      <div className="bg-white rounded-2xl shadow-soft border border-nordic-dark/5 overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-clear-day text-left text-xs uppercase tracking-wider text-nordic-muted">
-            <tr>
-              <th className="px-4 py-3">{t('dashboard.properties.col.image')}</th>
-              <th className="px-4 py-3">{t('dashboard.properties.col.title')}</th>
-              <th className="px-4 py-3">{t('dashboard.properties.col.location')}</th>
-              <th className="px-4 py-3">{t('dashboard.properties.col.price')}</th>
-              <th className="px-4 py-3">{t('dashboard.properties.col.type')}</th>
-              <th className="px-4 py-3">{t('dashboard.properties.col.featured')}</th>
-              <th className="px-4 py-3"></th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-nordic-dark/5">
-            {properties.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="px-4 py-10 text-center text-nordic-muted">
-                  {t('dashboard.properties.empty')}
-                </td>
-              </tr>
-            ) : (
-              properties.map((p) => (
-                <tr key={p.id} className="hover:bg-clear-day/40">
-                  <td className="px-4 py-3">
+      {/* Stats */}
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        {statCards.map((c) => (
+          <div
+            key={c.label}
+            className="bg-white p-5 rounded-xl border border-mosque/10 shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p className="text-sm font-medium text-nordic-muted">{c.label}</p>
+              <p className="text-2xl font-bold text-nordic-dark mt-1">{c.value}</p>
+            </div>
+            <div
+              className={`h-10 w-10 rounded-full flex items-center justify-center ${c.iconWrap}`}
+            >
+              <span className="material-icons">{c.icon}</span>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Search row (kept functional) */}
+      <form
+        method="get"
+        className="mb-4 flex flex-col sm:flex-row gap-2 items-stretch"
+      >
+        <input
+          type="text"
+          name="q"
+          defaultValue={q ?? ''}
+          placeholder={t('dashboard.properties.search_placeholder')}
+          className="w-full sm:w-72 rounded-lg border border-nordic-dark/15 bg-white px-3 py-2 text-sm focus:border-mosque focus:outline-none"
+        />
+        <select
+          name="type"
+          defaultValue={type ?? ''}
+          className="rounded-lg border border-nordic-dark/15 bg-white px-3 py-2 text-sm focus:border-mosque focus:outline-none"
+        >
+          <option value="">{t('dashboard.properties.type_any')}</option>
+          <option value="sale">{t('dashboard.properties.type_sale')}</option>
+          <option value="rent">{t('dashboard.properties.type_rent')}</option>
+        </select>
+        <button
+          type="submit"
+          className="rounded-lg bg-mosque text-white px-4 py-2 text-sm font-medium hover:bg-mosque/90 transition-colors"
+        >
+          {t('dashboard.properties.search')}
+        </button>
+      </form>
+
+      {/* Property list container */}
+      <div className="bg-white rounded-xl shadow-sm border border-nordic-dark/10 overflow-hidden">
+        {/* Table header */}
+        <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-clear-day/60 border-b border-nordic-dark/5 text-xs font-semibold text-nordic-dark/50 uppercase tracking-wider">
+          <div className="col-span-6">{t('dashboard.properties.col.details')}</div>
+          <div className="col-span-2">{t('dashboard.properties.col.price')}</div>
+          <div className="col-span-2">{t('dashboard.properties.col.status')}</div>
+          <div className="col-span-2 text-right">
+            {t('dashboard.properties.col.actions')}
+          </div>
+        </div>
+
+        {properties.length === 0 ? (
+          <div className="px-6 py-10 text-center text-nordic-muted">
+            {t('dashboard.properties.empty')}
+          </div>
+        ) : (
+          properties.map((p, idx) => {
+            const isLast = idx === properties.length - 1;
+            const monthly = p.type === 'rent';
+            return (
+              <div
+                key={p.id}
+                className={`group grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 ${
+                  isLast ? '' : 'border-b border-nordic-dark/5'
+                } hover:bg-clear-day transition-colors items-center`}
+              >
+                {/* Details */}
+                <div className="col-span-12 md:col-span-6 flex gap-4 items-center">
+                  <div className="relative h-20 w-28 flex-shrink-0 rounded-lg overflow-hidden bg-nordic-dark/5">
                     {p.images?.[0] ? (
                       <Image
                         src={p.images[0]}
                         alt={p.image_alt || p.title}
-                        width={56}
-                        height={42}
-                        className="rounded-md object-cover w-14 h-10"
+                        fill
+                        sizes="112px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                    ) : (
-                      <div className="w-14 h-10 rounded-md bg-clear-day" />
-                    )}
-                  </td>
-                  <td className="px-4 py-3 font-medium">{p.title}</td>
-                  <td className="px-4 py-3 text-nordic-muted">{p.location}</td>
-                  <td className="px-4 py-3 font-semibold">
-                    {formatPrice(p.price)}
-                    {p.price_suffix && (
-                      <span className="text-xs text-nordic-muted ml-1">
-                        {p.price_suffix}
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 capitalize">{p.type}</td>
-                  <td className="px-4 py-3">
-                    {p.is_featured ? (
-                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-mosque">
-                        <span className="material-icons text-base">star</span>
-                        {t('dashboard.properties.yes')}
-                      </span>
-                    ) : (
-                      <span className="text-xs text-nordic-muted">
-                        {t('dashboard.properties.no')}
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-right">
+                    ) : null}
+                  </div>
+                  <div className="min-w-0">
                     <Link
                       href={`/properties/${p.slug}`}
                       target="_blank"
-                      className="text-xs font-semibold text-mosque hover:underline"
+                      className="text-lg font-bold text-nordic-dark group-hover:text-mosque transition-colors truncate block"
                     >
-                      {t('dashboard.properties.view')}
+                      {p.title}
                     </Link>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+                    <p className="text-sm text-nordic-muted truncate">
+                      {p.location}
+                    </p>
+                    <div className="flex items-center gap-3 mt-1.5 text-xs text-nordic-dark/50">
+                      <span className="flex items-center gap-1">
+                        <span className="material-icons text-[14px]">bed</span>
+                        {p.beds} {t('dashboard.properties.meta.beds')}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-nordic-dark/20"></span>
+                      <span className="flex items-center gap-1">
+                        <span className="material-icons text-[14px]">bathtub</span>
+                        {p.baths} {t('dashboard.properties.meta.baths')}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-nordic-dark/20"></span>
+                      <span>
+                        {p.area} {t('dashboard.properties.meta.sqft')}
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
-      {totalPages > 1 && (
-        <nav className="mt-6 flex items-center justify-between">
-          <p className="text-sm text-nordic-muted">
-            {t('dashboard.properties.page_of')
-              .replace('{current}', String(currentPage))
-              .replace('{total}', String(totalPages))}
-          </p>
-          <div className="flex gap-2">
-            <PaginationLink
-              page={currentPage - 1}
-              disabled={currentPage <= 1}
-              q={q}
-              type={type}
-              label={t('pagination.prev')}
-            />
-            <PaginationLink
-              page={currentPage + 1}
-              disabled={currentPage >= totalPages}
-              q={q}
-              type={type}
-              label={t('pagination.next')}
-            />
+                {/* Price */}
+                <div className="col-span-6 md:col-span-2">
+                  <div className="text-base font-semibold text-nordic-dark">
+                    {formatPrice(p.price)}
+                  </div>
+                  {(p.price_suffix || monthly) && (
+                    <div className="text-xs text-nordic-dark/50">
+                      {p.price_suffix ?? '/mo'}
+                    </div>
+                  )}
+                </div>
+
+                {/* Status */}
+                <div className="col-span-6 md:col-span-2 flex flex-wrap gap-1">
+                  {p.type === 'sale' ? (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-hint-of-green text-mosque border border-mosque/10">
+                      <span className="w-1.5 h-1.5 rounded-full bg-mosque mr-1.5"></span>
+                      {t('dashboard.properties.status.for_sale')}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700 border border-orange-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-1.5"></span>
+                      {t('dashboard.properties.status.for_rent')}
+                    </span>
+                  )}
+                  {p.is_featured && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-mosque/10 text-mosque">
+                      <span className="material-icons text-[12px] mr-1">
+                        star
+                      </span>
+                      {t('dashboard.properties.status.featured')}
+                    </span>
+                  )}
+                </div>
+
+                {/* Actions */}
+                <div className="col-span-12 md:col-span-2 flex items-center justify-end gap-1">
+                  <Link
+                    href={`/properties/${p.slug}`}
+                    target="_blank"
+                    title={t('dashboard.properties.actions.view')}
+                    className="p-2 rounded-lg text-nordic-dark/60 hover:text-mosque hover:bg-hint-of-green/40 transition-all"
+                  >
+                    <span className="material-icons text-xl">visibility</span>
+                  </Link>
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                    title={t('dashboard.properties.coming_soon')}
+                    className="p-2 rounded-lg text-nordic-dark/30 cursor-not-allowed"
+                  >
+                    <span className="material-icons text-xl">edit</span>
+                  </button>
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                    title={t('dashboard.properties.coming_soon')}
+                    className="p-2 rounded-lg text-nordic-dark/30 cursor-not-allowed"
+                  >
+                    <span className="material-icons text-xl">delete_outline</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })
+        )}
+
+        {/* Pagination */}
+        <div className="px-6 py-4 border-t border-nordic-dark/10 flex items-center justify-between bg-clear-day/40 flex-wrap gap-3">
+          <div className="text-sm text-nordic-muted">
+            {t('dashboard.properties.pagination.showing')
+              .replace('{from}', String(fromIndex))
+              .replace('{to}', String(toIndex))
+              .replace('{total}', String(totalCount))}
           </div>
-        </nav>
-      )}
+          <Pagination
+            basePath="/dashboard/properties"
+            currentPage={currentPage}
+            totalPages={totalPages}
+            params={{ q, type }}
+            prevLabel={t('pagination.prev')}
+            nextLabel={t('pagination.next')}
+          />
+        </div>
+      </div>
     </div>
-  );
-}
-
-function PaginationLink({
-  page,
-  disabled,
-  q,
-  type,
-  label,
-}: {
-  page: number;
-  disabled: boolean;
-  q?: string;
-  type?: string;
-  label: string;
-}) {
-  if (disabled) {
-    return (
-      <span className="rounded-lg border border-nordic-dark/10 px-3 py-2 text-sm text-nordic-muted">
-        {label}
-      </span>
-    );
-  }
-  const params = new URLSearchParams();
-  params.set('page', String(page));
-  if (q) params.set('q', q);
-  if (type) params.set('type', type);
-  return (
-    <Link
-      href={`/dashboard/properties?${params.toString()}`}
-      className="rounded-lg border border-nordic-dark/15 bg-white px-3 py-2 text-sm font-medium hover:border-mosque hover:text-mosque transition-colors"
-    >
-      {label}
-    </Link>
   );
 }
