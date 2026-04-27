@@ -11,7 +11,7 @@
   "hero": {
     "title_start": "Trouvez votre",
     "title_highlight": "sanctuaire",
-    "search_placeholder": "Rechercher par ville, quartier ou adresse...",
+    "search_placeholder": "Rechercher par titre, ville ou adresse...",
     "search_button": "Rechercher",
     "filters": "Filtres",
     "categories": {
@@ -125,7 +125,7 @@
     "properties": {
       "title": "Mes Propriétés",
       "subtitle": "Gérez votre portefeuille et suivez les performances.",
-      "search_placeholder": "Rechercher par emplacement...",
+      "search_placeholder": "Rechercher par titre ou emplacement...",
       "search": "Rechercher",
       "type_any": "Tout type",
       "type_sale": "À vendre",

@@ -83,8 +83,14 @@ export async function getProperties(page: number = 1, filters: PropertyFilters =
     .select('*', { count: 'exact' });
 
   // Apply filters
+  // `location` ahora busca en título OR ubicación (un solo input para el usuario).
+  // Sanea caracteres que rompen la sintaxis de .or() (la coma es separador).
   if (filters.location) {
-    query = query.ilike('location', `%${filters.location}%`);
+    const term = filters.location.replace(/[%,()]/g, ' ').trim();
+    if (term) {
+      const pattern = `%${term}%`;
+      query = query.or(`title.ilike.${pattern},location.ilike.${pattern}`);
+    }
   }
   if (filters.minPrice) {
     query = query.gte('price', filters.minPrice);

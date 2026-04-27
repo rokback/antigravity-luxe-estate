@@ -11,7 +11,7 @@
   "hero": {
     "title_start": "Find your",
     "title_highlight": "sanctuary",
-    "search_placeholder": "Search by city, neighborhood, or address...",
+    "search_placeholder": "Search by title, city, or address...",
     "search_button": "Search",
     "filters": "Filters",
     "categories": {
@@ -125,7 +125,7 @@
     "properties": {
       "title": "My Properties",
       "subtitle": "Manage your portfolio and track performance.",
-      "search_placeholder": "Search by location...",
+      "search_placeholder": "Search by title or location...",
       "search": "Search",
       "type_any": "Any type",
       "type_sale": "For sale",

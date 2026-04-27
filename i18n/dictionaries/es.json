@@ -11,7 +11,7 @@
   "hero": {
     "title_start": "Encuentra tu",
     "title_highlight": "santuario",
-    "search_placeholder": "Busca por ciudad, barrio o dirección...",
+    "search_placeholder": "Busca por título, ciudad o dirección...",
     "search_button": "Buscar",
     "filters": "Filtros",
     "categories": {
@@ -125,7 +125,7 @@
     "properties": {
       "title": "Mis Propiedades",
       "subtitle": "Gestiona tu portafolio y monitorea el rendimiento.",
-      "search_placeholder": "Buscar por ubicación...",
+      "search_placeholder": "Buscar por título o ubicación...",
       "search": "Buscar",
       "type_any": "Cualquier tipo",
       "type_sale": "En venta",
