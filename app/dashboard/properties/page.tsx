@@ -4,6 +4,7 @@ import { getProperties } from '@/lib/properties';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { getTranslations } from '@/i18n';
 import Pagination from '../Pagination';
+import PropertyActiveToggle from './PropertyActiveToggle';
 
 type SearchParams = Promise<{ page?: string; q?: string; type?: string }>;
 
@@ -17,15 +18,21 @@ function formatPrice(value: number) {
 
 async function loadStats() {
   const admin = createAdminClient();
+  // Las stats reflejan inventario activo (lo que el público realmente ve).
   const [total, sale, rent] = await Promise.all([
-    admin.from('properties').select('*', { count: 'exact', head: true }),
     admin
       .from('properties')
       .select('*', { count: 'exact', head: true })
+      .eq('is_active', true),
+    admin
+      .from('properties')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_active', true)
       .eq('type', 'sale'),
     admin
       .from('properties')
       .select('*', { count: 'exact', head: true })
+      .eq('is_active', true)
       .eq('type', 'rent'),
   ]);
   return {
@@ -48,6 +55,7 @@ export default async function DashboardPropertiesPage({
     getProperties(currentPage, {
       location: q,
       type: type === 'sale' || type === 'rent' ? type : undefined,
+      includeInactive: true, // el panel admin ve también las desactivadas
     }),
     loadStats(),
   ]);
@@ -241,15 +249,26 @@ export default async function DashboardPropertiesPage({
 
                 {/* Status */}
                 <div className="col-span-6 md:col-span-2 flex flex-wrap gap-1">
+                  {!p.is_active && (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-700 border border-gray-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-500 mr-1.5"></span>
+                      {t('dashboard.properties.status.inactive')}
+                    </span>
+                  )}
                   {p.type === 'sale' ? (
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-hint-of-green text-mosque border border-mosque/10">
                       <span className="w-1.5 h-1.5 rounded-full bg-mosque mr-1.5"></span>
                       {t('dashboard.properties.status.for_sale')}
                     </span>
-                  ) : (
+                  ) : p.type === 'rent' ? (
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700 border border-orange-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-1.5"></span>
                       {t('dashboard.properties.status.for_rent')}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-nordic-dark text-white">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white mr-1.5"></span>
+                      {t('dashboard.properties.status.sold')}
                     </span>
                   )}
                   {p.is_featured && (
@@ -265,29 +284,22 @@ export default async function DashboardPropertiesPage({
                 {/* Actions */}
                 <div className="col-span-12 md:col-span-2 flex items-center justify-end gap-1">
                   <Link
-                    href={`/properties/${p.slug}`}
-                    target="_blank"
-                    title={t('dashboard.properties.actions.view')}
-                    className="p-2 rounded-lg text-nordic-dark/60 hover:text-mosque hover:bg-hint-of-green/40 transition-all"
-                  >
-                    <span className="material-icons text-xl">visibility</span>
-                  </Link>
-                  <Link
                     href={`/dashboard/properties/${p.id}/edit`}
                     title={t('dashboard.properties.actions.edit')}
                     className="p-2 rounded-lg text-nordic-dark/60 hover:text-mosque hover:bg-hint-of-green/40 transition-all"
                   >
                     <span className="material-icons text-xl">edit</span>
                   </Link>
-                  <button
-                    type="button"
-                    disabled
-                    aria-disabled="true"
-                    title={t('dashboard.properties.coming_soon')}
-                    className="p-2 rounded-lg text-nordic-dark/30 cursor-not-allowed"
-                  >
-                    <span className="material-icons text-xl">delete_outline</span>
-                  </button>
+                  <PropertyActiveToggle
+                    id={p.id}
+                    isActive={p.is_active}
+                    labels={{
+                      deactivate: t('dashboard.properties.actions.deactivate'),
+                      reactivate: t('dashboard.properties.actions.reactivate'),
+                      confirmDeactivate: t('dashboard.properties.actions.confirm_deactivate'),
+                      confirmReactivate: t('dashboard.properties.actions.confirm_reactivate'),
+                    }}
+                  />
                 </div>
               </div>
             );

@@ -172,6 +172,38 @@ export async function updateProperty(
 }
 
 /**
+ * Activa o desactiva una propiedad (soft delete).
+ * Cuando is_active = false, no aparece en filtros, home ni página de detalle.
+ * Sigue visible en el panel administrativo.
+ */
+export async function togglePropertyActive(
+  id: string,
+  active: boolean,
+): Promise<{ ok: boolean; error?: string }> {
+  await requireAdmin();
+  if (!id) return { ok: false, error: 'empty_id' };
+
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from('properties')
+    .update({ is_active: active })
+    .eq('id', id)
+    .select('slug')
+    .single();
+
+  if (error) {
+    console.error('togglePropertyActive error:', error);
+    return { ok: false, error: error.message };
+  }
+
+  revalidatePath('/dashboard/properties');
+  revalidatePath('/');
+  if (data?.slug) revalidatePath(`/properties/${data.slug}`);
+
+  return { ok: true };
+}
+
+/**
  * Elimina una imagen del bucket. Recibe la ruta interna del bucket
  * (ej. "properties/<uuid>/<file>.jpg"), no la URL completa.
  */

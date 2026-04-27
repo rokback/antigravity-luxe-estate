@@ -145,7 +145,9 @@
       "status": {
         "for_sale": "À vendre",
         "for_rent": "À louer",
-        "featured": "En vedette"
+        "sold": "Vendue",
+        "featured": "En vedette",
+        "inactive": "Désactivée"
       },
       "meta": {
         "beds": "Lits",
@@ -155,7 +157,11 @@
       "actions": {
         "view": "Voir",
         "edit": "Modifier",
-        "delete": "Supprimer"
+        "delete": "Supprimer",
+        "deactivate": "Désactiver",
+        "reactivate": "Réactiver",
+        "confirm_deactivate": "Désactiver cette propriété ? Elle n'apparaîtra plus sur le site public ni dans les recherches.",
+        "confirm_reactivate": "Réactiver cette propriété ? Elle réapparaîtra sur le site public."
       },
       "pagination": {
         "showing": "Affichage de {from} à {to} sur {total} résultats"

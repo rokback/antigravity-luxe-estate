@@ -27,6 +27,7 @@ export interface Property {
   parking: number;
   latitude: number | null;
   longitude: number | null;
+  is_active: boolean;
 }
 
 export interface PropertyFilters {
@@ -38,6 +39,11 @@ export interface PropertyFilters {
   baths?: number;
   amenities?: string[];
   type?: 'sale' | 'rent';
+  /**
+   * Por defecto solo se devuelven propiedades activas (is_active = true).
+   * Pasar `true` desde el panel administrativo para ver también las desactivadas.
+   */
+  includeInactive?: boolean;
 }
 
 export async function getPropertyBySlug(slug: string): Promise<Property | null> {
@@ -45,10 +51,11 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
     .from('properties')
     .select('*')
     .eq('slug', slug)
+    .eq('is_active', true)
     .single();
 
   if (error) {
-    if (error.code === 'PGRST116') return null; // Not found
+    if (error.code === 'PGRST116') return null; // Not found / inactive
     console.error('Error fetching property by slug:', error);
     return null;
   }
@@ -113,6 +120,9 @@ export async function getProperties(page: number = 1, filters: PropertyFilters =
   if (filters.amenities && filters.amenities.length > 0) {
     query = query.contains('amenities', filters.amenities);
   }
+  if (!filters.includeInactive) {
+    query = query.eq('is_active', true);
+  }
 
   const { data, count, error } = await query
     .order('created_at', { ascending: false })
@@ -134,6 +144,7 @@ export async function getFeaturedProperties() {
     .from('properties')
     .select('*')
     .eq('is_featured', true)
+    .eq('is_active', true)
     .order('created_at', { ascending: true })
     .limit(2); // Limit to 2 for the homescreen
 
