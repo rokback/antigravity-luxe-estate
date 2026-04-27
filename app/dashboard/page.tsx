@@ -13,7 +13,11 @@ async function getCounts() {
   const properties = propertiesRes.count ?? 0;
   const roles = rolesRes.data ?? [];
   const admins = roles.filter((r) => r.role === 'admin').length;
-  const users = usersRes.data?.total ?? roles.length;
+  // listUsers devuelve un union; `total` solo existe en la rama exitosa.
+  const users =
+    usersRes.data && 'total' in usersRes.data
+      ? usersRes.data.total
+      : roles.length;
 
   return { properties, users, admins };
 }
