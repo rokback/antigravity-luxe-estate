@@ -99,16 +99,13 @@ export default async function DashboardPropertiesPage({
             <span className="material-icons text-base">filter_list</span>
             {t('dashboard.properties.filter')}
           </button>
-          <button
-            type="button"
-            disabled
-            aria-disabled="true"
-            title={t('dashboard.properties.coming_soon')}
-            className="bg-mosque text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-mosque/20 inline-flex items-center gap-2 opacity-60 cursor-not-allowed"
+          <Link
+            href="/dashboard/properties/new"
+            className="bg-mosque hover:bg-mosque/90 text-white px-5 py-2.5 rounded-lg text-sm font-medium shadow-md shadow-mosque/20 inline-flex items-center gap-2 transition-colors"
           >
             <span className="material-icons text-base">add</span>
             {t('dashboard.properties.add_new')}
-          </button>
+          </Link>
         </div>
       </header>
 
@@ -275,15 +272,13 @@ export default async function DashboardPropertiesPage({
                   >
                     <span className="material-icons text-xl">visibility</span>
                   </Link>
-                  <button
-                    type="button"
-                    disabled
-                    aria-disabled="true"
-                    title={t('dashboard.properties.coming_soon')}
-                    className="p-2 rounded-lg text-nordic-dark/30 cursor-not-allowed"
+                  <Link
+                    href={`/dashboard/properties/${p.id}/edit`}
+                    title={t('dashboard.properties.actions.edit')}
+                    className="p-2 rounded-lg text-nordic-dark/60 hover:text-mosque hover:bg-hint-of-green/40 transition-all"
                   >
                     <span className="material-icons text-xl">edit</span>
-                  </button>
+                  </Link>
                   <button
                     type="button"
                     disabled

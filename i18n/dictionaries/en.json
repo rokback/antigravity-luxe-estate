@@ -170,6 +170,69 @@
         "location": "Location",
         "type": "Type",
         "featured": "Featured"
+      },
+      "form": {
+        "title_create": "Add New Property",
+        "title_edit": "Edit Property",
+        "subtitle": "Fill in the details to create or update the listing.",
+        "required_hint": "Fields marked with * are mandatory.",
+        "save": "Save Property",
+        "saving": "Saving...",
+        "cancel": "Cancel",
+        "breadcrumb_root": "Properties",
+        "chars": "characters",
+        "section": {
+          "basic": "Basic Information",
+          "description": "Description",
+          "gallery": "Gallery",
+          "location": "Location",
+          "details": "Details"
+        },
+        "field": {
+          "title": "Property Title",
+          "price": "Price",
+          "status": "Status",
+          "type": "Property Type",
+          "description": "Description",
+          "address": "Address",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "area": "Area (m²)",
+          "year_built": "Year Built",
+          "beds": "Bedrooms",
+          "baths": "Bathrooms",
+          "parking": "Parking",
+          "amenities": "Amenities"
+        },
+        "status": {
+          "sale": "For Sale",
+          "rent": "For Rent",
+          "sold": "Sold"
+        },
+        "types": {
+          "apartment": "Apartment",
+          "house": "House",
+          "villa": "Villa",
+          "commercial": "Commercial"
+        },
+        "amenities": {
+          "garden": "Garden"
+        },
+        "gallery": {
+          "drop_hint": "Click or drag images here",
+          "max_size": "Max file size 5MB per image",
+          "formats": "JPG, PNG, WEBP",
+          "main_badge": "Main",
+          "add_more": "Add More",
+          "uploading": "Uploading..."
+        },
+        "map": {
+          "click_hint": "Click on the map to set the location"
+        },
+        "errors": {
+          "save": "Could not save the property. Please try again.",
+          "upload": "Could not upload the image."
+        }
       }
     },
     "users": {

@@ -163,7 +163,11 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
               {/* Map Section */}
               <div className="bg-white p-2 rounded-xl shadow-sm border border-mosque/5">
                 <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-100 h-64">
-                  <PropertyDetailsMap location={property.location} />
+                  <PropertyDetailsMap
+                    location={property.location}
+                    latitude={property.latitude}
+                    longitude={property.longitude}
+                  />
                 </div>
               </div>
             </div>
@@ -199,18 +203,20 @@ export default async function PropertyDetailsPage({ params }: PageProps) {
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
               <h2 className="text-lg font-semibold mb-4 text-nordic">{t('details.about_title')}</h2>
-              <div className="prose prose-slate max-w-none text-nordic/70 leading-relaxed">
-                <p className="mb-4">
-                  {t('details.desc_1').replace('{location}', property.location)}
-                </p>
-                <p>
-                  {t('details.desc_2')}
-                </p>
+              <div className="prose prose-slate max-w-none text-nordic/70 leading-relaxed whitespace-pre-line">
+                {property.description ? (
+                  <p>{property.description}</p>
+                ) : (
+                  <>
+                    <p className="mb-4">
+                      {t('details.desc_1').replace('{location}', property.location)}
+                    </p>
+                    <p>
+                      {t('details.desc_2')}
+                    </p>
+                  </>
+                )}
               </div>
-              <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                {t('details.read_more')}
-                <span className="material-icons text-sm">arrow_forward</span>
-              </button>
             </div>
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">

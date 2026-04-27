@@ -18,10 +18,15 @@ export interface Property {
   images: string[];
   image_alt: string;
   badge: string | null;
-  type: 'sale' | 'rent';
+  type: 'sale' | 'rent' | 'sold';
   is_featured: boolean;
   category: string | null;
   amenities: string[];
+  description: string | null;
+  year_built: number | null;
+  parking: number;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 export interface PropertyFilters {
@@ -45,6 +50,22 @@ export async function getPropertyBySlug(slug: string): Promise<Property | null> 
   if (error) {
     if (error.code === 'PGRST116') return null; // Not found
     console.error('Error fetching property by slug:', error);
+    return null;
+  }
+
+  return data as Property;
+}
+
+export async function getPropertyById(id: string): Promise<Property | null> {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116') return null;
+    console.error('Error fetching property by id:', error);
     return null;
   }
 

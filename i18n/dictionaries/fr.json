@@ -170,6 +170,69 @@
         "location": "Emplacement",
         "type": "Type",
         "featured": "En vedette"
+      },
+      "form": {
+        "title_create": "Ajouter une propriété",
+        "title_edit": "Modifier la propriété",
+        "subtitle": "Remplissez les détails pour créer ou mettre à jour l'annonce.",
+        "required_hint": "Les champs marqués * sont obligatoires.",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "breadcrumb_root": "Propriétés",
+        "chars": "caractères",
+        "section": {
+          "basic": "Informations de base",
+          "description": "Description",
+          "gallery": "Galerie",
+          "location": "Emplacement",
+          "details": "Détails"
+        },
+        "field": {
+          "title": "Titre de la propriété",
+          "price": "Prix",
+          "status": "Statut",
+          "type": "Type de propriété",
+          "description": "Description",
+          "address": "Adresse",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "area": "Surface (m²)",
+          "year_built": "Année de construction",
+          "beds": "Chambres",
+          "baths": "Salles de bain",
+          "parking": "Stationnement",
+          "amenities": "Équipements"
+        },
+        "status": {
+          "sale": "À vendre",
+          "rent": "À louer",
+          "sold": "Vendue"
+        },
+        "types": {
+          "apartment": "Appartement",
+          "house": "Maison",
+          "villa": "Villa",
+          "commercial": "Commercial"
+        },
+        "amenities": {
+          "garden": "Jardin"
+        },
+        "gallery": {
+          "drop_hint": "Cliquez ou glissez les images ici",
+          "max_size": "Taille max 5 Mo par image",
+          "formats": "JPG, PNG, WEBP",
+          "main_badge": "Principale",
+          "add_more": "Ajouter plus",
+          "uploading": "Téléversement..."
+        },
+        "map": {
+          "click_hint": "Cliquez sur la carte pour situer la propriété"
+        },
+        "errors": {
+          "save": "Échec de l'enregistrement. Réessayez.",
+          "upload": "Échec du téléversement de l'image."
+        }
       }
     },
     "users": {

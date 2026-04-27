@@ -170,6 +170,69 @@
         "location": "Ubicación",
         "type": "Tipo",
         "featured": "Destacada"
+      },
+      "form": {
+        "title_create": "Añadir nueva propiedad",
+        "title_edit": "Editar propiedad",
+        "subtitle": "Completa los detalles para crear/actualizar el listado.",
+        "required_hint": "Los campos con * son obligatorios.",
+        "save": "Guardar propiedad",
+        "saving": "Guardando...",
+        "cancel": "Cancelar",
+        "breadcrumb_root": "Propiedades",
+        "chars": "caracteres",
+        "section": {
+          "basic": "Información básica",
+          "description": "Descripción",
+          "gallery": "Galería",
+          "location": "Ubicación",
+          "details": "Detalles"
+        },
+        "field": {
+          "title": "Título de la propiedad",
+          "price": "Precio",
+          "status": "Estado",
+          "type": "Tipo de propiedad",
+          "description": "Descripción",
+          "address": "Dirección",
+          "latitude": "Latitud",
+          "longitude": "Longitud",
+          "area": "Área (m²)",
+          "year_built": "Año de construcción",
+          "beds": "Dormitorios",
+          "baths": "Baños",
+          "parking": "Estacionamiento",
+          "amenities": "Comodidades"
+        },
+        "status": {
+          "sale": "En venta",
+          "rent": "En alquiler",
+          "sold": "Vendida"
+        },
+        "types": {
+          "apartment": "Apartamento",
+          "house": "Casa",
+          "villa": "Villa",
+          "commercial": "Comercial"
+        },
+        "amenities": {
+          "garden": "Jardín"
+        },
+        "gallery": {
+          "drop_hint": "Haz clic o arrastra imágenes aquí",
+          "max_size": "Tamaño máximo 5MB por imagen",
+          "formats": "JPG, PNG, WEBP",
+          "main_badge": "Principal",
+          "add_more": "Añadir más",
+          "uploading": "Subiendo..."
+        },
+        "map": {
+          "click_hint": "Haz clic en el mapa para ubicar la propiedad"
+        },
+        "errors": {
+          "save": "No se pudo guardar la propiedad. Inténtalo de nuevo.",
+          "upload": "No se pudo subir la imagen."
+        }
       }
     },
     "users": {

@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
         hostname: 'avatars.githubusercontent.com',
         pathname: '/**',
       },
+      {
+        // Supabase Storage — bucket property-images
+        protocol: 'https',
+        hostname: 'irbvsbooocoezbuubikk.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
 };
